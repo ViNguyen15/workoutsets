@@ -1,6 +1,14 @@
 package com.example.workoutsets;
 
+import android.graphics.Matrix;
 import android.os.Bundle;
+
+import org.json.JSONObject;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,21 +18,28 @@ import androidx.core.view.WindowInsetsCompat;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.workoutsets.ApiConnection.API_POST;
 import com.example.workoutsets.entity.WorkoutSet;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
+
+    API_POST apiPost = new API_POST();
     WorkoutSet mySet;
     String name = "Jimmy";
     TextView num1;
     TextView num2;
     TextView num3;
     TextView reps;
+    String stage = "workout";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +47,27 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        Button button1 = findViewById(R.id.submitBtn);
+        Button submitBtn = findViewById(R.id.submitBtn);
         num1 = findViewById(R.id.num1);
         num2 = findViewById(R.id.num2);
         num3 = findViewById(R.id.num3);
         reps = findViewById(R.id.repsNum);
+        RadioGroup stageGroup = findViewById(R.id.stageGroup);
 
-        button1.setOnClickListener(v -> {
+        // Set a listener on the RadioGroup
+        stageGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            // Get the selected RadioButton
+            RadioButton selectedRadioButton = findViewById(checkedId);
+
+            // Show a message or perform an action based on the selection
+            stage = selectedRadioButton.getText().toString();
+            Toast.makeText(this, stage, Toast.LENGTH_SHORT).show();
+        });
+
+
+
+        submitBtn.setOnClickListener(v -> {
+
             System.out.println("Hello Mochi! " + num1.getText());
             String[] dateTime = timeStamp().split(" ");
             String date = dateTime[0];
@@ -50,9 +79,11 @@ public class MainActivity extends AppCompatActivity {
             int weight = trueWeight();
             int reps = repsDone();
 
-            mySet = new WorkoutSet(name,date,time,weight,reps,"warmup");
+
+            mySet = new WorkoutSet(name,date,time,weight,reps,stage);
             System.out.println(mySet);
             Toast.makeText(this, mySet.toString(), Toast.LENGTH_SHORT).show();
+            apiPost.postData(mySet);
 
         });
 
@@ -77,6 +108,21 @@ public class MainActivity extends AppCompatActivity {
         if(num >= 10){
             num = 0;
         }
+        tv.setText(Integer.toString(num));
+    }
+
+    public void repPressed(TextView tv, String update){
+        int num = Integer.parseInt((String) tv.getText());
+        System.out.println(num);
+        if(update.equals("increase")){
+            num++;
+        }else{
+            num--;
+            if (num < 0){
+                num=0;
+            }
+        }
+
         tv.setText(Integer.toString(num));
     }
 
@@ -127,6 +173,14 @@ public class MainActivity extends AppCompatActivity {
         byFive(num1);
     }
 
+    public void onDecreaseRepPress(View v){
+        repPressed(reps,"decrease");
+    }
+
+    public void onIncreaseRepPress(View v){
+        repPressed(reps,"increase");
+    }
+
     public String timeStamp(){
         // Get the current date and time
         Date currentDate = new Date();
@@ -142,6 +196,9 @@ public class MainActivity extends AppCompatActivity {
     public int repsDone(){
         return Integer.parseInt(reps.getText() + "");
     }
+
+
+
 
 
 }
