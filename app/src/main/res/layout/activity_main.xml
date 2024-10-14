@@ -51,7 +51,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/num2"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/back"/>
+        android:background="@drawable/back"
+        />
 
     <TextView
         android:id="@+id/num2"
@@ -67,6 +68,7 @@
         app:layout_constraintRight_toLeftOf="@+id/num1"
 
         app:layout_constraintTop_toTopOf="parent" />
+
 
 
     <TextView
@@ -89,7 +91,7 @@
     <Button
         android:id="@+id/submitBtn"
         android:layout_width="350px"
-        android:layout_height="200px"
+        android:layout_height="300px"
         android:layout_marginTop="80px"
         android:layout_marginRight="30dp"
         android:text="Submit"
@@ -106,7 +108,8 @@
         app:layout_constraintLeft_toLeftOf="@id/num3"
         app:layout_constraintRight_toRightOf="@id/num3"
         app:srcCompat="@android:drawable/arrow_up_float"
-        android:backgroundTint="#00FFFFFF"/>
+        android:backgroundTint="#00FFFFFF"
+        android:onClick="upArrow3Press"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/downArrow3"
@@ -118,6 +121,7 @@
         app:layout_constraintTop_toBottomOf="@id/num3"
         app:srcCompat="@android:drawable/arrow_down_float"
         android:backgroundTint="#00FFFFFF"
+        android:onClick="downArrow3Press"
         />
 
 
@@ -130,7 +134,9 @@
         app:layout_constraintLeft_toLeftOf="@id/num2"
         app:layout_constraintRight_toRightOf="@id/num2"
         app:srcCompat="@android:drawable/arrow_up_float"
-        android:backgroundTint="#00FFFFFF"/>
+        android:backgroundTint="#00FFFFFF"
+        android:onClick="upArrow2Press"
+        />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/downArrow2"
@@ -142,6 +148,7 @@
         app:layout_constraintTop_toBottomOf="@id/num2"
         app:srcCompat="@android:drawable/arrow_down_float"
         android:backgroundTint="#00FFFFFF"
+        android:onClick="downArrow2Press"
         />
 
 
@@ -155,6 +162,7 @@
         app:layout_constraintRight_toRightOf="@id/num1"
         app:srcCompat="@android:drawable/arrow_up_float"
         android:backgroundTint="#00FFFFFF"
+        android:onClick="upArrow1Press"
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -167,7 +175,10 @@
         app:layout_constraintTop_toBottomOf="@id/num1"
         app:srcCompat="@android:drawable/arrow_down_float"
         android:backgroundTint="#00FFFFFF"
+        android:onClick="downArrow1Press"
         />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

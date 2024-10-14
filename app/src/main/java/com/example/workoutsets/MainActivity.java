@@ -8,17 +8,140 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.workoutsets.entity.WorkoutSet;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
+    WorkoutSet mySet;
+    String name = "Jimmy";
+    TextView num1;
+    TextView num2;
+    TextView num3;
+    TextView reps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+        Button button1 = findViewById(R.id.submitBtn);
+        num1 = findViewById(R.id.num1);
+        num2 = findViewById(R.id.num2);
+        num3 = findViewById(R.id.num3);
+        reps = findViewById(R.id.repsNum);
+
+        button1.setOnClickListener(v -> {
+            System.out.println("Hello Mochi! " + num1.getText());
+            String[] dateTime = timeStamp().split(" ");
+            String date = dateTime[0];
+            String time = dateTime[1];
+
+            System.out.println("Date: " + date);
+            System.out.println("Time: " + time);
+            System.out.println("Reps done: " + repsDone());
+            int weight = trueWeight();
+            int reps = repsDone();
+
+            mySet = new WorkoutSet(name,date,time,weight,reps,"warmup");
+            System.out.println(mySet);
+            Toast.makeText(this, mySet.toString(), Toast.LENGTH_SHORT).show();
+
+        });
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+
             return insets;
         });
     }
+
+    public int trueWeight(){
+        String num = "" + num3.getText() + num2.getText() + num1.getText();
+        System.out.println("Weight is: " + num);
+        return Integer.parseInt(num);
+    }
+
+    public void upPressed(TextView tv){
+        int num = Integer.parseInt((String) tv.getText());
+        System.out.println(num);
+        num++;
+        if(num >= 10){
+            num = 0;
+        }
+        tv.setText(Integer.toString(num));
+    }
+
+    public void downPressed(TextView tv){
+        int num = Integer.parseInt((String) tv.getText());
+        System.out.println(num);
+        num--;
+        if(num < 0){
+            num = 9;
+        }
+        tv.setText(Integer.toString(num));
+    }
+
+    public void byFive(TextView tv){
+        int num = Integer.parseInt((String) tv.getText());
+        if(num != 0) {
+            num = 0;
+        }else{
+            num = 5;
+        }
+        tv.setText(Integer.toString(num));
+    }
+
+
+    // all up arrows 3 is left
+    public void upArrow3Press(View v){
+        upPressed(num3);
+    }
+
+    public void upArrow2Press(View v){
+        upPressed(num2);
+    }
+
+    public void upArrow1Press(View v){
+        byFive(num1);
+    }
+
+    // all down arrows 3 is left
+    public void downArrow3Press(View v){
+        downPressed(num3);
+    }
+
+    public void downArrow2Press(View v){
+        downPressed(num2);
+    }
+
+    public void downArrow1Press(View v){
+        byFive(num1);
+    }
+
+    public String timeStamp(){
+        // Get the current date and time
+        Date currentDate = new Date();
+
+        // Format the date and time
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = formatter.format(currentDate);
+
+        System.out.println("current time is " + formattedDateTime);
+        return formattedDateTime;
+    }
+
+    public int repsDone(){
+        return Integer.parseInt(reps.getText() + "");
+    }
+
+
 }
