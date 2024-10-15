@@ -1,5 +1,6 @@
 package com.example.workoutsets.ApiConnection;
 
+import com.example.workoutsets.Security.Secure;
 import com.example.workoutsets.entity.WorkoutSet;
 
 import org.json.JSONObject;
@@ -12,7 +13,7 @@ import java.net.URL;
 
 public class API_POST {
 
-    private static final String URL_STRING = "http://localhost:8080/addset"; // Your API URL
+    private static final String URL_STRING = Secure.urlPost; // Your API URL
 
 
     public void postData(WorkoutSet myData) {

@@ -15,17 +15,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.workoutsets.ApiConnection.API_GET;
 import com.example.workoutsets.ApiConnection.API_POST;
 import com.example.workoutsets.entity.WorkoutSet;
+import com.example.workoutsets.fragments.Page1Fragment;
+import com.example.workoutsets.fragments.Page2Fragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,6 +40,7 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
     API_POST apiPost = new API_POST();
+    API_GET apiGet = new API_GET();
     WorkoutSet mySet;
     String name = "Jimmy";
     TextView num1;
@@ -84,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
             System.out.println(mySet);
             Toast.makeText(this, mySet.toString(), Toast.LENGTH_SHORT).show();
             apiPost.postData(mySet);
+
 
         });
 
@@ -199,6 +208,41 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    // Method called when the menu button is clicked
+    public void showPopupMenu(View view) {
+        // Create a PopupMenu
+        PopupMenu popup = new PopupMenu(this, view);
+        popup.getMenuInflater().inflate(R.menu.menu_popup, popup.getMenu());
 
+        // Set up menu item click listener
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                String title = item.getTitle().toString(); // Get the title of the clicked item
+                switch (title) {
+                    case "Open Page 1":
+                        replaceFragment(new Page1Fragment());
+                        return true;
+                    case "Open Page 2":
+                        replaceFragment(new Page2Fragment());
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+        // Show the popup menu
+        popup.show();
+    }
+
+    // Helper method to replace the fragment
+    private void replaceFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 
 }
