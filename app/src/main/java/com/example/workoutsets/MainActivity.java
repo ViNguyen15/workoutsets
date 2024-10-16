@@ -87,12 +87,10 @@ public class MainActivity extends AppCompatActivity {
             int weight = trueWeight();
             int reps = repsDone();
 
-
             mySet = new WorkoutSet(name,date,time,weight,reps,stage);
             System.out.println(mySet);
             Toast.makeText(this, mySet.toString(), Toast.LENGTH_SHORT).show();
             apiPost.postData(mySet);
-
 
         });
 

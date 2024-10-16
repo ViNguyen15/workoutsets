@@ -21,7 +21,7 @@ import android.os.Handler;
 public class API_GET {
 
     public List<WorkoutSet> getDataFromApi() {
-        String address = "http://10.0.0.42:8080/allset";
+        String address = Secure.urlGet;
         List<WorkoutSet> myDataList = new ArrayList<>();
 
         try {
