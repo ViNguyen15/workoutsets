@@ -33,6 +33,7 @@ import com.example.workoutsets.ApiConnection.API_POST;
 import com.example.workoutsets.entity.WorkoutSet;
 import com.example.workoutsets.fragments.Page1Fragment;
 import com.example.workoutsets.fragments.Page2Fragment;
+import com.example.workoutsets.helper.FileIO;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -40,9 +41,8 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
     API_POST apiPost = new API_POST();
-    API_GET apiGet = new API_GET();
+    API_GET apiGet = new API_GET(this);
     WorkoutSet mySet;
-    String name = "Jimmy";
     TextView num1;
     TextView num2;
     TextView num3;
@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+        FileIO.createFileIfNotExists(this);
 
         Button submitBtn = findViewById(R.id.submitBtn);
         num1 = findViewById(R.id.num1);
@@ -76,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         submitBtn.setOnClickListener(v -> {
 
+            String name = FileIO.readFromFile(this).get(0);
             System.out.println("Hello Mochi! " + num1.getText());
             String[] dateTime = timeStamp().split(" ");
             String date = dateTime[0];
@@ -87,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             int weight = trueWeight();
             int reps = repsDone();
 
-            mySet = new WorkoutSet(name,date,time,weight,reps,stage);
+            mySet = new WorkoutSet(name,date,time,weight,reps,this.stage);
             System.out.println(mySet);
             Toast.makeText(this, mySet.toString(), Toast.LENGTH_SHORT).show();
             apiPost.postData(mySet);

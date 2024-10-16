@@ -3,6 +3,7 @@ package com.example.workoutsets.ApiConnection;
 import com.example.workoutsets.Security.Secure;
 import com.example.workoutsets.entity.WorkoutSet;
 import com.example.workoutsets.fragments.Page2Fragment;
+import com.example.workoutsets.helper.FileIO;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,17 +17,27 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import android.content.Context;
 import android.os.Handler;
 
 public class API_GET {
 
+    private Context context;
+
+    public API_GET(Context context){
+        this.context = context;
+    }
+
     public List<WorkoutSet> getDataFromApi() {
-        String address = Secure.urlGet;
+        String address = Secure.urlGet + FileIO.readFromFile(context).get(0);
+        System.out.println("Address = "+address);
         List<WorkoutSet> myDataList = new ArrayList<>();
 
         try {
             URL url = new URL(address);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestProperty("Authorization", Secure.token);
             conn.setRequestMethod("GET");
             conn.setConnectTimeout(5000);
             conn.setReadTimeout(5000);
@@ -51,6 +62,8 @@ public class API_GET {
                     myData.setReps(jsonObject.getInt("reps"));
                     myData.setDate(jsonObject.getString("date"));
                     myData.setTime(jsonObject.getString("time"));
+                    myData.setStage(jsonObject.getString("stage"));
+
                     myDataList.add(myData);
                 }
 

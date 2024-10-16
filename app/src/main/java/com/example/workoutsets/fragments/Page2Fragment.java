@@ -44,7 +44,7 @@ public class Page2Fragment extends Fragment {
     private void fetchData() {
         System.out.println("Fetching data now");
         new Thread(() -> {
-            API_GET apiClient = new API_GET();
+            API_GET apiClient = new API_GET(getContext());
             List<WorkoutSet> data = apiClient.getDataFromApi(); // Get data without callback
 
             if (data != null && !data.isEmpty()) {
