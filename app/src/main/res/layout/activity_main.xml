@@ -146,9 +146,9 @@
 
     <ImageButton
         android:id="@+id/repsArrowDecrease"
-        android:layout_width="100dp"
+        android:layout_width="50dp"
         android:layout_height="40dp"
-        android:backgroundTint="#00FFFFFF"
+        android:backgroundTint="#e1e1e1"
         android:clickable="true"
 
         android:gravity="center"
@@ -160,16 +160,46 @@
         />
 
     <ImageButton
-        android:id="@+id/repsArrowIncrease"
-        android:layout_width="100dp"
+        android:id="@+id/repsArrowDecrease10"
+        android:layout_width="50dp"
         android:layout_height="40dp"
         android:backgroundTint="#00FFFFFF"
+        android:clickable="true"
+
+        android:gravity="center"
+        android:onClick="onDecreaseRepPress10"
+        app:layout_constraintBottom_toBottomOf="@id/repsNum"
+        app:layout_constraintRight_toLeftOf="@id/repsArrowDecrease"
+        app:srcCompat="@android:drawable/arrow_down_float"
+
+        />
+
+    <ImageButton
+        android:id="@+id/repsArrowIncrease"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:backgroundTint="#e1e1e1"
         android:clickable="true"
 
         android:gravity="center"
         android:onClick="onIncreaseRepPress"
         app:layout_constraintBottom_toBottomOf="@id/repsNum"
         app:layout_constraintLeft_toRightOf="@id/repText"
+        app:srcCompat="@android:drawable/arrow_up_float"
+
+        />
+
+    <ImageButton
+        android:id="@+id/repsArrowIncrease10"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:backgroundTint="#00FFFFFF"
+        android:clickable="true"
+
+        android:gravity="center"
+        android:onClick="onIncreaseRepPress10"
+        app:layout_constraintBottom_toBottomOf="@id/repsNum"
+        app:layout_constraintLeft_toRightOf="@id/repsArrowIncrease"
         app:srcCompat="@android:drawable/arrow_up_float"
 
         />

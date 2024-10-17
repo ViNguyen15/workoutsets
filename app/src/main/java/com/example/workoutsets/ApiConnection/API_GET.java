@@ -57,6 +57,7 @@ public class API_GET {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     WorkoutSet myData = new WorkoutSet();
+                    myData.setId(jsonObject.getInt("id"));
                     myData.setName(jsonObject.getString("name"));
                     myData.setWeight(jsonObject.getInt("weight"));
                     myData.setReps(jsonObject.getInt("reps"));

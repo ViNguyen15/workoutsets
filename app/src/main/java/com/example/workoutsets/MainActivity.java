@@ -33,6 +33,7 @@ import com.example.workoutsets.ApiConnection.API_POST;
 import com.example.workoutsets.entity.WorkoutSet;
 import com.example.workoutsets.fragments.Page1Fragment;
 import com.example.workoutsets.fragments.Page2Fragment;
+import com.example.workoutsets.fragments.PageUserData;
 import com.example.workoutsets.helper.FileIO;
 
 import java.text.SimpleDateFormat;
@@ -73,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
             stage = selectedRadioButton.getText().toString();
             Toast.makeText(this, stage, Toast.LENGTH_SHORT).show();
         });
-
 
 
         submitBtn.setOnClickListener(v -> {
@@ -156,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
         tv.setText(Integer.toString(num));
     }
 
-
     // all up arrows 3 is left
     public void upArrow3Press(View v){
         upPressed(num3);
@@ -187,8 +186,21 @@ public class MainActivity extends AppCompatActivity {
         repPressed(reps,"decrease");
     }
 
+    public void onDecreaseRepPress10(View v){
+        for(int i = 0; i < 10; i++){
+            repPressed(reps,"decrease");
+        }
+    }
+
     public void onIncreaseRepPress(View v){
         repPressed(reps,"increase");
+    }
+
+    public void onIncreaseRepPress10(View v){
+        for(int i = 0; i < 10; i++){
+            repPressed(reps,"increase");
+        }
+
     }
 
     public String timeStamp(){
@@ -206,7 +218,6 @@ public class MainActivity extends AppCompatActivity {
     public int repsDone(){
         return Integer.parseInt(reps.getText() + "");
     }
-
 
 
     // Method called when the menu button is clicked
@@ -227,6 +238,9 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case "Open Page 2":
                         replaceFragment(new Page2Fragment());
+                        return true;
+                    case "All Sets":
+                        replaceFragment(new PageUserData());
                         return true;
                     default:
                         return false;

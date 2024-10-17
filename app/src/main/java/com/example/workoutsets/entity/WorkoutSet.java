@@ -2,6 +2,7 @@ package com.example.workoutsets.entity;
 
 public class WorkoutSet {
 
+    int id;
     String name;
     String date;
     String time;
@@ -19,6 +20,14 @@ public class WorkoutSet {
         this.weight = weight;
         this.reps = reps;
         this.stage = stage;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
