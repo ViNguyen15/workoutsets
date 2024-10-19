@@ -9,6 +9,7 @@ public class WorkoutSet {
     int weight;
     int reps;
     String stage;
+    String max;
 
     public WorkoutSet(){}
 
@@ -78,6 +79,18 @@ public class WorkoutSet {
         this.stage = stage;
     }
 
+    public String getMax() {
+        return max;
+    }
+
+    public void setMax(String max) {
+        this.max = max;
+    }
+
+    public String userDisplay(){
+        String text = String.format("%3s |  %5s |  %3s | %8s | %8s",weight, reps, max, stage, date);
+        return text;
+    }
 
     @Override
     public String toString() {

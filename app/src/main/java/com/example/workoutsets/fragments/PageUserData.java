@@ -1,5 +1,7 @@
 package com.example.workoutsets.fragments;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,19 +70,16 @@ public class PageUserData extends Fragment {
             ));
 
             // Create the TextView
-            TextView textView = new TextView(getContext());
-            textView.setText(set.getName() + " weight: " + set.getWeight() +
-                    " Reps: " + set.getReps() + " " + set.getDate());
-            textView.setTextSize(20);
-            textView.setLayoutParams(new LinearLayout.LayoutParams(
-                    0, // Width: take up remaining space
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    1.0f // Weight
-            ));
+            TextView viewWeight = blockData(set.getWeight()+"",100);
+            TextView viewReps = blockData(set.getReps()+"",100);
+            TextView viewMax = blockData(set.getMax(),100);
+            TextView viewStage = blockData(set.getStage(),100);
+            TextView viewDate = blockData(set.getDate(),100);
 
             // Create the Delete Button
             Button deleteButton = new Button(getContext());
-            deleteButton.setText("Delete");
+            deleteButton.setText("X");
+            deleteButton.setTextSize(20);
             deleteButton.setLayoutParams(new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
@@ -92,7 +91,11 @@ public class PageUserData extends Fragment {
             });
 
             // Add the TextView and Delete Button to the horizontal LinearLayout
-            horizontalLayout.addView(textView);
+            horizontalLayout.addView(viewWeight);
+            horizontalLayout.addView(viewReps);
+            horizontalLayout.addView(viewMax);
+            horizontalLayout.addView(viewStage);
+            horizontalLayout.addView(viewDate);
             horizontalLayout.addView(deleteButton);
 
             // Add the horizontal LinearLayout to the main layout
@@ -117,4 +120,23 @@ public class PageUserData extends Fragment {
             }
         }).start();
     }
+
+
+    private TextView blockData(String text,int size){
+        TextView textView = new TextView(getContext());
+        textView.setText(text);
+        textView.setTextSize(20);
+        textView.setGravity(Gravity.CENTER);
+        int widthInDp = size;
+        int widthInPixels = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, widthInDp, getResources().getDisplayMetrics());
+        textView.setLayoutParams(new LinearLayout.LayoutParams(
+                widthInPixels, //
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                1.0f // Weight
+        ));
+
+        return textView;
+
+    }
+
 }

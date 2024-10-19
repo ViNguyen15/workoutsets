@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
         tv.setText(Integer.toString(num));
     }
 
-    // all up arrows 3 is left
+    // all up arrows, 3 is left
     public void upArrow3Press(View v){
         upPressed(num3);
     }
@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         byFive(num1);
     }
 
-    // all down arrows 3 is left
+    // all down arrows, 3 is left
     public void downArrow3Press(View v){
         downPressed(num3);
     }

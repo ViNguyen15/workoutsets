@@ -64,7 +64,7 @@ public class API_GET {
                     myData.setDate(jsonObject.getString("date"));
                     myData.setTime(jsonObject.getString("time"));
                     myData.setStage(jsonObject.getString("stage"));
-
+                    myData.setMax(jsonObject.getString("max"));
                     myDataList.add(myData);
                 }
 

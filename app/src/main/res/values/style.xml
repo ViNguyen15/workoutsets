@@ -30,4 +30,14 @@
         <item name="android:layout_height">30dp</item>
         <item name="android:textSize">15dp</item>
     </style>
+
+    <style name="DataHeader">
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">160dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:gravity">center_vertical|center</item>
+        <item name="android:background">@drawable/back</item>
+    </style>
+
 </resources>
