@@ -1,5 +1,7 @@
 package com.example.workoutsets.fragments;
+import android.app.Activity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,7 +27,8 @@ import java.util.List;
 public class PageUserData extends Fragment {
 
     private LinearLayout layout;
-
+    // Get the screen size
+    DisplayMetrics displayMetrics = new DisplayMetrics();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -59,7 +62,6 @@ public class PageUserData extends Fragment {
         // Clear previous views before updating
         layout.removeAllViews();
 
-        // Dynamically add TextView and Button pairs
         for (WorkoutSet set : sets) {
             // Create a horizontal LinearLayout for each row
             LinearLayout horizontalLayout = new LinearLayout(getContext());
@@ -123,17 +125,27 @@ public class PageUserData extends Fragment {
 
 
     private TextView blockData(String text,int size){
+
+
+        ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int screenWidth = displayMetrics.widthPixels;
+        int screenHeight = displayMetrics.heightPixels;
+
+        // Define the percentage (e.g., 50% width and 30% height of the parent)
+        int widthPercentage = 18;  // 50% of the width
+        int heightPercentage = 13; // 30% of the height
+
+        int layoutWidth = (screenWidth * widthPercentage) / 100;
+        int layoutHeight = (screenHeight * heightPercentage) / 100;
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(layoutWidth, layoutHeight);
+
         TextView textView = new TextView(getContext());
         textView.setText(text);
         textView.setTextSize(20);
         textView.setGravity(Gravity.CENTER);
-        int widthInDp = size;
-        int widthInPixels = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, widthInDp, getResources().getDisplayMetrics());
-        textView.setLayoutParams(new LinearLayout.LayoutParams(
-                widthInPixels, //
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                1.0f // Weight
-        ));
+
+        textView.setLayoutParams(new LinearLayout.LayoutParams(params));
 
         return textView;
 

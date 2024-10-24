@@ -146,6 +146,7 @@
 
     <ImageButton
         android:id="@+id/repsArrowDecrease"
+
         android:layout_width="50dp"
         android:layout_height="40dp"
         android:backgroundTint="#e1e1e1"
@@ -159,18 +160,19 @@
 
         />
 
-    <ImageButton
-        android:id="@+id/repsArrowDecrease10"
-        android:layout_width="50dp"
-        android:layout_height="40dp"
-        android:backgroundTint="#00FFFFFF"
+    <TextView
+        android:id="@+id/repsArrowDecreaseOutside"
+        android:backgroundTint="#ffffff"
         android:clickable="true"
-
+        android:text="-10"
+        android:textStyle="bold"
         android:gravity="center"
         android:onClick="onDecreaseRepPress10"
+
+        android:layout_width="50dp"
+        android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="@id/repsNum"
         app:layout_constraintRight_toLeftOf="@id/repsArrowDecrease"
-        app:srcCompat="@android:drawable/arrow_down_float"
 
         />
 
@@ -189,18 +191,21 @@
 
         />
 
-    <ImageButton
-        android:id="@+id/repsArrowIncrease10"
+    <TextView
+        android:id="@+id/repsArrowIncreaseOutside"
+        android:backgroundTint="#ffffff"
+        android:clickable="true"
+        android:text="+10"
+        android:textStyle="bold"
+        android:gravity="center"
+
+        android:onClick="onIncreaseRepPress10"
+
         android:layout_width="50dp"
         android:layout_height="40dp"
-        android:backgroundTint="#00FFFFFF"
-        android:clickable="true"
 
-        android:gravity="center"
-        android:onClick="onIncreaseRepPress10"
         app:layout_constraintBottom_toBottomOf="@id/repsNum"
         app:layout_constraintLeft_toRightOf="@id/repsArrowIncrease"
-        app:srcCompat="@android:drawable/arrow_up_float"
 
         />
 

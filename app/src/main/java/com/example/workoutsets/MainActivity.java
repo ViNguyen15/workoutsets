@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String title = item.getTitle().toString(); // Get the title of the clicked item
                 switch (title) {
-                    case "Open Page 1":
+                    case "User Settings":
                         replaceFragment(new Page1Fragment());
                         return true;
                     case "Open Page 2":
